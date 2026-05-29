@@ -1,3 +1,11 @@
+const games = [
+    ...games1,
+    ...games2,
+    ...games3,
+    ...games4,
+    ...games5,
+    ...games6
+];
 
 
 // Get game for today
