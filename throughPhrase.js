@@ -330,7 +330,8 @@ function forceRevealAnswer(index) {
     throughLineStates[index].solved = true;
 
     // Mark visually
-    container.classList.add('solved');
+//    container.classList.add('solved');
+    container.classList.add('revealed-wrong');
     container.querySelector('.through-line-status').textContent = '✗';
 
     // Show the answer
