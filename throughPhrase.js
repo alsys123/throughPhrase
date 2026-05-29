@@ -132,11 +132,19 @@ function handleSubmit(index) {
     const input = document.getElementById(`input-${index}`);
 
     // If max attempts reached → auto‑reveal
+    /*
     if (totalAttempts >= MAX_ATTEMPTS) {
         showFeedback("No more attempts left today! Revealing the answer.", "error");
         forceRevealAnswer(index);
         return;
-    }
+    }*/
+if (totalAttempts >= MAX_ATTEMPTS) {
+    showFeedback("No more attempts left today! Revealing all answers.", "error");
+    throughLineStates.forEach((state, i) => {
+        if (!state.solved) forceRevealAnswer(i);
+    });
+    return;
+}
 
     const guess = input.value.trim().toUpperCase();
     
@@ -336,4 +344,13 @@ function forceRevealAnswer(index) {
             document.getElementById(`input-${nextIndex}`).focus();
         }
     }, 500);
+
+    // Check if all through lines are now solved (including force-revealed)
+const allDone = throughLineStates.every(s => s.solved);
+if (allDone) {
+    setTimeout(() => {
+        revealPhrase();
+    }, currentGame.throughLines.length * 100 + 500);
+}
+
 }
