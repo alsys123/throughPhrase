@@ -1,5 +1,5 @@
     // Game data - each game has multiple through lines whose answers form a phrase
-    const games = [
+    const games6 = [
         {
             phrase: "EVERY CLOUD HAS A SILVER LINING",
             throughLines: [
