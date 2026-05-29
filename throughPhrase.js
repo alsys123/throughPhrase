@@ -173,7 +173,12 @@ if (totalAttempts >= MAX_ATTEMPTS) {
         showFeedback('Not the right connection. Try again!', 'error');
         input.value = '';
         input.focus();
-    }
+        
+    const container = document.getElementById(`through-line-${index}`);
+container.classList.add('wrong');
+setTimeout(() => container.classList.remove('wrong'), 600);
+
+}
 }
 /*
 const MAX_ATTEMPTS = 10;
