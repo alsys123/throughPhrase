@@ -349,3 +349,57 @@ input[type="text"]:focus {
 .through-line.solved .through-line-status {
     color: #4CAF50 !important;
 }
+
+/* Clickable BackDoor */
+
+#solved-stat {
+    cursor: pointer;
+    padding: 2px 6px;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    background: rgba(42, 82, 152, 0.08); /* subtle highlight */
+}
+
+#solved-stat:hover {
+    background: rgba(42, 82, 152, 0.18);
+    box-shadow: 0 0 4px rgba(42, 82, 152, 0.4);
+}
+
+#solved-stat:active {
+    transform: scale(0.96);
+}
+
+.phrase-index {
+    font-family: monospace;
+    display: inline-block;
+    width: 5ch;       /* exactly 5 monospace characters */
+    text-align: right;
+    color: #555;      /* optional subtle tint */
+}
+#solved-stat {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#secret-phrase-list {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+#secret-phrase-list li {
+    font-family: monospace;
+    white-space: pre;
+}
+#tap-debug {
+    transition: opacity 0.2s ease;
+}
+.clickable-phrase {
+    cursor: pointer;
+    padding: 2px 4px;
+    transition: background 0.15s ease;
+}
+
+.clickable-phrase:hover {
+    background: rgba(42, 82, 152, 0.15);
+}

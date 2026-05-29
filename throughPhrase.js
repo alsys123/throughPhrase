@@ -4,7 +4,8 @@ const games = [
     ...games3,
     ...games4,
     ...games5,
-    ...games6
+    ...games6,
+    ...games7
 ];
 
 
@@ -47,6 +48,201 @@ function init() {
     // Update stats
     updateStats();
 }
+
+// *** backdoor ***
+
+let secretTapCount = 0;
+//let lastTapTime = 0;
+let tapTimes = [];
+let debugCount = 0;
+
+//const solvedStatId = document.getElementById("solved-stat");
+const tapDebug = document.getElementById("tap-debug");
+
+solvedStat.addEventListener("click", () => {
+    const now = Date.now();
+
+    // Keep only taps within the last 900ms
+    tapTimes = tapTimes.filter(t => now - t < 900);
+    tapTimes.push(now);
+
+    // Count double‑taps
+    let doubleTaps = 0;
+    for (let i = 1; i < tapTimes.length; i++) {
+        if (tapTimes[i] - tapTimes[i - 1] < 350) {
+            doubleTaps++;
+        }
+    }
+
+    debugCount = doubleTaps;
+    tapDebug.textContent = debugCount > 0 ? `(${debugCount})` : "";
+
+    if (doubleTaps >= 3) {
+        tapTimes = [];
+        debugCount = 0;
+        tapDebug.textContent = "";
+        openSecretModal();
+    }
+});
+
+/*
+let tapTimes = [];
+
+document.getElementById("solved-stat").addEventListener("click", () => {
+    const now = Date.now();
+
+    // Keep only taps within the last 900ms
+    tapTimes = tapTimes.filter(t => now - t < 900);
+
+    tapTimes.push(now);
+
+    // Count double‑taps
+    let doubleTaps = 0;
+    for (let i = 1; i < tapTimes.length; i++) {
+        if (tapTimes[i] - tapTimes[i - 1] < 350) {
+            doubleTaps++;
+        }
+    }
+
+    if (doubleTaps >= 3) {
+        tapTimes = [];
+        openSecretModal();
+    }
+})
+;
+*/
+/*
+document.getElementById("solved-stat").addEventListener("click", () => {
+    const now = Date.now();
+    const delta = now - lastTapTime;
+
+    // Two taps within 350ms = one double‑tap
+    if (delta < 350) {
+        secretTapCount++;
+    } else {
+        secretTapCount = 0; // too slow → reset
+    }
+
+    lastTapTime = now;
+
+    // Need 3 double‑taps
+    if (secretTapCount >= 3) {
+        secretTapCount = 0;
+        openSecretModal();
+    }
+});
+*/
+/*
+let secretClickCount = 0;
+let secretTimer = null;
+
+document.getElementById("solved-stat").addEventListener("dblclick", () => {
+    secretClickCount++;
+
+    cLog("backdoor:",secretClickCount);
+
+    // Reset if too slow
+    if (secretTimer) clearTimeout(secretTimer);
+    secretTimer = setTimeout(() => secretClickCount = 0, 1200);
+
+    if (secretClickCount >= 3) {
+        secretClickCount = 0;
+        openSecretModal();
+    }
+});
+*/
+
+document.getElementById("secret-close").addEventListener("click", () => {
+    document.getElementById("secret-modal").style.display = "none";
+});
+
+function openSecretModal() {
+    const modal = document.getElementById("secret-modal");
+    const list = document.getElementById("secret-phrase-list");
+
+    list.innerHTML = "";
+
+    // Extract all phrases
+    const phrases = games.map((g, i) => ({
+        index: i + 1,
+        phrase: g.phrase
+    }));
+
+    // Sort alphabetically
+    phrases.sort((a, b) => a.phrase.localeCompare(b.phrase));
+
+    // Render sorted list
+    phrases.forEach(item => {
+const li = document.createElement("li");
+
+    const fixedIndex = (item.index + ".").padStart(5, " ");
+
+    li.innerHTML = `<span class="phrase-index">${fixedIndex}</span> ${item.phrase}`;
+    li.dataset.gameIndex = item.index - 1;   // store original index
+    li.classList.add("clickable-phrase");
+
+    list.appendChild(li);
+/*	
+        const li = document.createElement("li");
+
+
+//	li.textContent = `${fixedIndex} ${item.phrase}`;
+	const fixedIndex = (item.index + ".").padStart(5, " ");
+	li.innerHTML = `<span class="phrase-index">${fixedIndex}</span> ${item.phrase}`;
+
+//        li.textContent = `${item.index}. ${item.phrase}`;
+list.appendChild(li);
+*/
+    });
+
+    modal.style.display = "block";
+}
+
+/*
+function openSecretModal() {
+    cLog("open");
+    
+    const modal = document.getElementById("secret-modal");
+    const list = document.getElementById("secret-phrase-list");
+
+    list.innerHTML = "";
+
+    games.forEach((g, i) => {
+        const li = document.createElement("li");
+        li.textContent = `${i + 1}. ${g.phrase}`;
+        list.appendChild(li);
+    });
+
+    modal.style.display = "block";
+}
+*/
+document.getElementById("secret-phrase-list").addEventListener("click", (e) => {
+    const li = e.target.closest("li");
+    if (!li) return;
+
+    const gameIndex = parseInt(li.dataset.gameIndex, 10);
+
+    // Load selected game
+    currentGame = games[gameIndex];
+
+    // Reset state
+    totalAttempts = 0;
+    solvedCount = 0;
+    throughLineStates = currentGame.throughLines.map(() => ({
+        solved: false,
+        attempts: 0
+    }));
+
+    // Re-render UI
+    renderThroughLines();
+    updateStats();
+
+    // Close modal
+    document.getElementById("secret-modal").style.display = "none";
+});
+
+// *** End of Backdoor
+
 
 function renderThroughLines() {
     throughLinesContainer.innerHTML = '';

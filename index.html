@@ -37,21 +37,61 @@
             <span class="stat-label">Total Attempts</span>
         </div>
         <div class="stat-item">
-            <span class="stat-value" id="solved-stat">0/0</span>
+          <span class="stat-value" id="solved-stat">0/0</span>
+
+	  <span id="tap-debug" style="
+    font-family: monospace;
+    font-size: 0.75rem;
+    opacity: 0.6;
+    margin-left: 4px;
+    "></span>
+	  
             <span class="stat-label">Solved</span>
         </div>
     </div>
 </div>
 
 
-<script src="data/games1.js"></script>
-<script src="data/games2.js"></script>
-<script src="data/games3.js"></script>
-<script src="data/games4.js"></script>
-<script src="data/games5.js"></script>
-<script src="data/games6.js"></script>
+    <div id="secret-modal" style="
+    position: fixed;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    width: 600px;
+    max-height: 60vh;
+    overflow-y: auto;
+    display: none;
+    z-index: 9999;
+">
+    <button id="secret-close" style="
+        position: absolute;
+        top: 6px;
+        right: 8px;
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: #666;
+        transition: 0.2s;
+    ">✖</button>
+
+    <h3>All Phrases</h3>
+    <ul id="secret-phrase-list"></ul>
+</div>
 
 
+    <script src="utils.js"></script>
+    
+    <script src="data/games1.js"></script>
+    <script src="data/games2.js"></script>
+    <script src="data/games3.js"></script>
+    <script src="data/games4.js"></script>
+    <script src="data/games5.js"></script>
+    <script src="data/games6.js"></script>
+    <script src="data/games7.js"></script>
     
     <script src="throughPhrase.js"></script>
 
