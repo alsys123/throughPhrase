@@ -1,8 +1,7 @@
 # Throughline renamed to throughPhrase
 Word game
-entry point:
-
-https://alsys123.github.io/ThroughPhrase/index.html
+entry point:  
+https://alsys123.github.io/throughPhrase/index.html
 
 Thia ia fhe public site:
 https://sites.google.com/view/through-line-word-game/through-line
