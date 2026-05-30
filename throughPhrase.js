@@ -52,8 +52,10 @@ function init() {
 // *** backdoor ***
 
 let secretTapCount = 0;
+/*
 //let lastTapTime = 0;
 let tapTimes = [];
+
 let debugCount = 0;
 
 //const solvedStatId = document.getElementById("solved-stat");
@@ -84,7 +86,7 @@ solvedStat.addEventListener("click", () => {
         openSecretModal();
     }
 });
-
+*/
 /*
 let tapTimes = [];
 
@@ -135,22 +137,22 @@ document.getElementById("solved-stat").addEventListener("click", () => {
 /*
 let secretClickCount = 0;
 let secretTimer = null;
-
-document.getElementById("solved-stat").addEventListener("dblclick", () => {
+*/
+document.getElementById("solved-stat").addEventListener("click", () => {
     secretClickCount++;
 
-    cLog("backdoor:",secretClickCount);
+   // cLog("backdoor:",secretClickCount);
 
     // Reset if too slow
-    if (secretTimer) clearTimeout(secretTimer);
-    secretTimer = setTimeout(() => secretClickCount = 0, 1200);
+//    if (secretTimer) clearTimeout(secretTimer);
+ //   secretTimer = setTimeout(() => secretClickCount = 0, 1200);
 
     if (secretClickCount >= 3) {
         secretClickCount = 0;
         openSecretModal();
     }
 });
-*/
+
 
 document.getElementById("secret-close").addEventListener("click", () => {
     document.getElementById("secret-modal").style.display = "none";
