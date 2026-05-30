@@ -155,6 +155,7 @@ dei("tapDebug").textContent = secretClickCount > 0 ? `(${secretClickCount})` : "
     }
 });
 
+dei("tapDebug").textContent = secretClickCount; //debug only
 
 document.getElementById("secret-close").addEventListener("click", () => {
     document.getElementById("secret-modal").style.display = "none";
