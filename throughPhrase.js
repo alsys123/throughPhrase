@@ -146,9 +146,11 @@ document.getElementById("solved-stat").addEventListener("click", () => {
     // Reset if too slow
 //    if (secretTimer) clearTimeout(secretTimer);
  //   secretTimer = setTimeout(() => secretClickCount = 0, 1200);
-
+dei("tapDebug").textContent = secretClickCount > 0 ? `(${secretClickCount})` : "";
+	
     if (secretClickCount >= 3) {
         secretClickCount = 0;
+		dei("tapDebug").textContent = "";
         openSecretModal();
     }
 });
